@@ -26,6 +26,24 @@ root.
 Each command scans `.github/workflows/` and composite actions under
 `.github/actions/`.
 
+## Example
+
+The `fix` command transforms unpinned action references into secure,
+version-pinned SHAs:
+
+**Before:**
+```yaml
+- uses: actions/checkout@v5
+```
+
+**After:**
+```yaml
+- uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+```
+
+The SHA corresponds to the commit for the specified version tag, and the
+comment preserves the human-readable version for maintainability.
+
 ## Version Resolution
 
 Version comments such as `# v2`, `# v2.1`, or `# v2.1.3` determine which
