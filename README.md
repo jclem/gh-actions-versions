@@ -11,8 +11,27 @@ those pins up to date in bulk.
 gh extension install jclem/gh-actions-versions
 ```
 
+The command above installs precompiled binaries when a tagged release exists.
+If no release is available yet, GitHub CLI falls back to the source launcher
+script in this repo, which builds the extension locally on first run and
+requires `go` to be installed.
+
 Local development can run the extension via `go run .` from the repository
 root.
+
+## Releasing
+
+This repo publishes installable extension artifacts from tags that match `v*`.
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+Pushing the tag triggers `.github/workflows/release.yml`, which runs
+`cli/gh-extension-precompile` and attaches platform-specific binaries to the
+GitHub release. After that, `gh extension install jclem/gh-actions-versions`
+works without a local Go toolchain.
 
 ## Commands
 
